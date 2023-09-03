@@ -2,7 +2,10 @@
 .godot/
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 6c5572cd079d1c76084a24e7d5b724cefcd2411e
 =======
 >>>>>>> 6c5572cd079d1c76084a24e7d5b724cefcd2411e
 
@@ -19,6 +22,9 @@ export_presets.cfg
 data_*/
 mono_crash.*.json
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 6c5572cd079d1c76084a24e7d5b724cefcd2411e
+=======
 >>>>>>> 6c5572cd079d1c76084a24e7d5b724cefcd2411e
 =======
 >>>>>>> 6c5572cd079d1c76084a24e7d5b724cefcd2411e
