@@ -17,5 +17,11 @@ layer_0/tile_data = PackedInt32Array(1310767, 0, 4, 1245231, 0, 4, 1179695, 0, 4
 [node name="Player" parent="." instance=ExtResource("1_4pgou")]
 position = Vector2(453, 267)
 
-[node name="BasicEnemy" parent="." instance=ExtResource("4_atmu4")]
-position = Vector2(452, 127)
+[node name="BasicEnemy" parent="." groups=["enemy"] instance=ExtResource("4_atmu4")]
+position = Vector2(513, 136)
+
+[node name="BasicEnemy2" parent="." groups=["enemy"] instance=ExtResource("4_atmu4")]
+position = Vector2(169, 239)
+
+[node name="BasicEnemy3" parent="." groups=["enemy"] instance=ExtResource("4_atmu4")]
+position = Vector2(274, 146)

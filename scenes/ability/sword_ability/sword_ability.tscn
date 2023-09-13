@@ -88,6 +88,5 @@ libraries = {
 }
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("1_ua40x")
 offset = Vector2(0, -4)

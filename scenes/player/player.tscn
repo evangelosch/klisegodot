@@ -1,13 +1,62 @@
-[gd_scene load_steps=7 format=3 uid="uid://0a5rw31n3xt0"]
+[gd_scene load_steps=13 format=3 uid="uid://0a5rw31n3xt0"]
 
-[ext_resource type="Texture2D" uid="uid://c5bmhqaawr1e7" path="res://scenes/player/player.png" id="1_74m4v"]
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_yvdc5"]
 [ext_resource type="PackedScene" uid="uid://cxft20wmj8fhc" path="res://scenes/ability/sword_ability_controller/sword_ability_controller.tscn" id="2_364nj"]
-[ext_resource type="Texture2D" uid="uid://6nkuj71xqfvo" path="res://scenes/ability/sword_ability/crosshair038.png" id="4_oo7gi"]
-[ext_resource type="Script" path="res://scenes/player/Crosshair.gd" id="5_sgj06"]
+[ext_resource type="Texture2D" uid="uid://co4u5xa0umg5b" path="res://scenes/player/player.png" id="3_2vtou"]
+[ext_resource type="PackedScene" uid="uid://w651xpr6w4rn" path="res://scenes/player/crosshair/cursor.tscn" id="4_3m852"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m2njd"]
+atlas = ExtResource("3_2vtou")
+region = Rect2(0, 192, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vc87u"]
+atlas = ExtResource("3_2vtou")
+region = Rect2(48, 192, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2okn3"]
+atlas = ExtResource("3_2vtou")
+region = Rect2(96, 192, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xvgdi"]
+atlas = ExtResource("3_2vtou")
+region = Rect2(144, 192, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q1tub"]
+atlas = ExtResource("3_2vtou")
+region = Rect2(192, 192, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1jht2"]
+atlas = ExtResource("3_2vtou")
+region = Rect2(240, 192, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_up67d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m2njd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vc87u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2okn3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xvgdi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q1tub")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1jht2")
+}],
+"loop": true,
+"name": &"look_right",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_15gt0"]
-radius = 5.0
+radius = 5.38516
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 0
@@ -18,16 +67,19 @@ script = ExtResource("1_yvdc5")
 [node name="SwordAbilityController" parent="AbilityManager" instance=ExtResource("2_364nj")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_74m4v")
+position = Vector2(-1, -28)
 offset = Vector2(0, -8)
-flip_h = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite2D"]
+position = Vector2(0, 10)
+sprite_frames = SubResource("SpriteFrames_up67d")
+animation = &"look_right"
+frame = 2
+frame_progress = 0.251553
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -7)
+position = Vector2(-1, -9)
 shape = SubResource("CircleShape2D_15gt0")
 
-[node name="Crosshair" type="Sprite2D" parent="."]
-position = Vector2(35, 35)
-scale = Vector2(0.257, 0.3)
-texture = ExtResource("4_oo7gi")
-script = ExtResource("5_sgj06")
+[node name="Cursor" parent="." instance=ExtResource("4_3m852")]
+position = Vector2(31, 10)
