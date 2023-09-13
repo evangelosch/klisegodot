@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://4xlb60k1rmug" path="res://scenes/basic_enemy/slime.png" id="2_bglv6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v2m5v"]
-radius = 19.0263
+radius = 14.0357
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_td2l5"]
 atlas = ExtResource("2_bglv6")
@@ -50,9 +50,9 @@ collision_layer = 0
 collision_mask = 4
 script = ExtResource("1_7055l")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="DamageHitBox" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageHitBox"]
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_v2m5v")
 
@@ -68,6 +68,6 @@ frame = 3
 frame_progress = 0.918439
 flip_h = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionHitBox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_d7ulp")

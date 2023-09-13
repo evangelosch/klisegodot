@@ -3,7 +3,7 @@ extends CharacterBody2D
 const MAX_SPEED = 75
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Area2D.area_entered.connect(on_area_entered)
+	$DamageHitBox.area_entered.connect(on_area_entered)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -20,4 +20,6 @@ func get_direction_to_player():
 	return Vector2.ZERO
 
 func on_area_entered(other_area: Area2D):
-	queue_free()
+	if other_area.get_parent().name == "PlayerBullet":
+		queue_free()
+	return

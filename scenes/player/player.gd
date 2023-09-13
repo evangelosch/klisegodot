@@ -8,11 +8,12 @@ var dash_direction = Vector2()
 var friction = 0.5
 var dash_speed = 10
 var dash_length = 3
-
+var can_shoot = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$ShootCooldown.timeout.connect(on_ShootCooldown_timeout)
+	$ShootSound.finished.connect(on_ShootSound_finished)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -25,7 +26,7 @@ func _process(delta):
 		do_dash(delta)
 		print("dash")
 	#handle shooting
-	if Input.is_action_just_pressed("left_click"):
+	if Input.is_action_just_pressed("left_click") and can_shoot:
 		do_shoot()
 	
 	
@@ -46,9 +47,20 @@ func get_input_direction():
 	return input_direction
 
 func do_shoot():
+	can_shoot = false
+	$ShootCooldown.start()
+	
 	var bullet = bullet_scene.instantiate()
 	get_tree().get_first_node_in_group("player").add_child(bullet)
 	bullet.global_position = global_position
 	var direction = (get_global_mouse_position() - bullet.global_position).normalized()
 	bullet.velocity = direction * bullet.speed
-	print("shoot")
+	$ShootSound.play()
+	
+	
+func on_ShootCooldown_timeout():
+	can_shoot = true
+	
+
+func on_ShootSound_finished():
+	$ReloadSound.play()
