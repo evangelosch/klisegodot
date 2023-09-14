@@ -1,15 +1,33 @@
 extends CharacterBody2D
 
+var directions = [
+	Vector2(0, -1),   # Up
+	Vector2(0, 1),    # Down
+	Vector2(-1, 0),   # Left
+	Vector2(1, 0),    # Right
+	Vector2(1, -1),   # UpRight
+	Vector2(-1, -1),  # UpLeft
+	Vector2(1, 1),    # DownRight
+	Vector2(-1, 1)    # DownLeft
+]
+
+
+var current_direction = Vector2(0, 0)  # Initial direction
+
+
 const MAX_SPEED = 75
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$DamageHitBox.area_entered.connect(on_area_entered)
+	$DirectionChangeTimer.timeout.connect(on_DirectionChangeTimer_timeout)
+	change_direction()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var direction = get_direction_to_player()
-	velocity = direction * MAX_SPEED
+#	var direction = get_direction_to_player()
+	velocity = current_direction * MAX_SPEED
+	#velocity = direction * MAX_SPEED
 	move_and_slide()
 
 
@@ -20,6 +38,14 @@ func get_direction_to_player():
 	return Vector2.ZERO
 
 func on_area_entered(other_area: Area2D):
-	if other_area.get_parent().name == "PlayerBullet":
+	print("Area entered: ", other_area.name)
+	if other_area.is_in_group("PlayerBullet"):
 		queue_free()
 	return
+
+func on_DirectionChangeTimer_timeout():
+	change_direction()
+
+
+func change_direction():
+	current_direction = directions[randi() % directions.size()].normalized()

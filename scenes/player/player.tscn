@@ -70,12 +70,8 @@ script = ExtResource("1_yvdc5")
 
 [node name="SwordAbilityController" parent="AbilityManager" instance=ExtResource("2_364nj")]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-1, -28)
-offset = Vector2(0, -8)
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite2D"]
-position = Vector2(0, 10)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, -18)
 sprite_frames = SubResource("SpriteFrames_up67d")
 animation = &"look_right"
 frame = 2

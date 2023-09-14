@@ -28,12 +28,12 @@ func _process(delta):
 	#handle shooting
 	if Input.is_action_just_pressed("left_click") and can_shoot:
 		do_shoot()
-	
-	
+
+
 func get_movement_input():
 	velocity = get_input_direction() * MAX_SPEED
-	
-	
+
+
 func do_dash(deltaValue):
 	velocity = get_input_direction() * dash_speed * dash_length
 	velocity *= 1.0 - (friction * deltaValue)
@@ -46,21 +46,23 @@ func get_input_direction():
 		return Vector2.ZERO
 	return input_direction
 
+
 func do_shoot():
 	can_shoot = false
 	$ShootCooldown.start()
 	
 	var bullet = bullet_scene.instantiate()
-	get_tree().get_first_node_in_group("player").add_child(bullet)
+	get_tree().get_first_node_in_group("player").get_parent().add_child(bullet)
 	bullet.global_position = global_position
 	var direction = (get_global_mouse_position() - bullet.global_position).normalized()
 	bullet.velocity = direction * bullet.speed
+	print("Bullet created with type: ", bullet.get_class())
 	$ShootSound.play()
-	
-	
+
+
 func on_ShootCooldown_timeout():
 	can_shoot = true
-	
+
 
 func on_ShootSound_finished():
 	$ReloadSound.play()
