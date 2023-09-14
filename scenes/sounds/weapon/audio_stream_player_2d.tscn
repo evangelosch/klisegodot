@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dr42solgasmsw"]
+
+[ext_resource type="AudioStream" uid="uid://cwgclbtht5anp" path="res://assets/sound/weapon/weapon_fire.wav" id="1_31fwv"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_31fwv")
