@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c5bmhqaawr1e7" path="res://scenes/player/player.png" id="1_74m4v"]
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_yvdc5"]
 [ext_resource type="PackedScene" uid="uid://cxft20wmj8fhc" path="res://scenes/ability/sword_ability_controller/sword_ability_controller.tscn" id="2_364nj"]
-[ext_resource type="Texture2D" uid="uid://6nkuj71xqfvo" path="res://scenes/ability/sword_ability/crosshair038.png" id="4_oo7gi"]
+[ext_resource type="Texture2D" path="res://scenes/ability/sword_ability/crosshair038.png" id="4_oo7gi"]
 [ext_resource type="Script" path="res://scenes/player/Crosshair.gd" id="5_sgj06"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_15gt0"]
