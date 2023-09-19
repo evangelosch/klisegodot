@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+var bullet_scene: PackedScene = preload("res://scenes/basic_enemy/bullet/enemy_bullet.tscn")
+
 var directions = [
 	Vector2(0, -1),   # Up
 	Vector2(0, 1),    # Down
@@ -8,7 +10,7 @@ var directions = [
 	Vector2(1, -1),   # UpRight
 	Vector2(-1, -1),  # UpLeft
 	Vector2(1, 1),    # DownRight
-	Vector2(-1, 1)    # DownLeft
+	Vector2(-1, 1)    # DownLeft	
 ]
 
 
@@ -20,6 +22,7 @@ const MAX_SPEED = 75
 func _ready():
 	$DamageHitBox.area_entered.connect(on_area_entered)
 	$DirectionChangeTimer.timeout.connect(on_DirectionChangeTimer_timeout)
+	$ShootTimer.timeout.connect(_on_ShootTimer_timeout)
 	change_direction()
 
 
@@ -29,6 +32,7 @@ func _process(delta):
 	velocity = current_direction * MAX_SPEED
 	#velocity = direction * MAX_SPEED
 	move_and_slide()
+
 
 
 func get_direction_to_player():
@@ -49,3 +53,17 @@ func on_DirectionChangeTimer_timeout():
 
 func change_direction():
 	current_direction = directions[randi() % directions.size()].normalized()
+
+
+func shoot_at_player():
+	var bullet = bullet_scene.instantiate() as Area2D
+	get_parent().add_child(bullet)
+	
+	bullet.global_position = global_position
+	var direction = get_direction_to_player()
+	bullet.velocity = direction * bullet.speed
+	print("Bullet created with type: ", bullet.get_class())
+
+
+func _on_ShootTimer_timeout():
+	shoot_at_player()
