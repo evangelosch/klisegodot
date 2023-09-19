@@ -9,15 +9,22 @@ var friction = 0.5
 var dash_speed = 10
 var dash_length = 3
 var can_shoot = true
+var bullet_dodge_distance_threshold: float = 50.0 
+@onready var animation_tree : AnimationTree = $AnimationTree
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	animation_tree.active = true
 	$ShootCooldown.timeout.connect(on_ShootCooldown_timeout)
 	$ShootSound.finished.connect(on_ShootSound_finished)
+	animation_tree.animation_finished.connect(on_ParryAnimation_finished)
+	$Parry.area_entered.connect(on_ParryHitbox_area_entered)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	#handle animations
+	update_animation_parameters()
 	#handle movement
 	get_movement_input()
 	move_and_slide()
@@ -35,9 +42,19 @@ func get_movement_input():
 
 
 func do_dash(deltaValue):
+	for bullet in get_tree().get_nodes_in_group("enemyBullet"):
+		if bullet.global_position.distance_to(global_position) < bullet_dodge_distance_threshold:
+			slow_down_time(0.5, 2.0)  # Slow down time
+			break  # Exit the loop once one qualifying bullet is found
 	velocity = get_input_direction() * dash_speed * dash_length
 	velocity *= 1.0 - (friction * deltaValue)
 	move_and_collide(velocity)
+
+
+func slow_down_time(scale: float, duration: float):
+	Engine.time_scale = scale
+	await get_tree().create_timer(duration).timeout
+	Engine.time_scale = 1.0
 
 
 func get_input_direction():
@@ -66,3 +83,25 @@ func on_ShootCooldown_timeout():
 
 func on_ShootSound_finished():
 	$ReloadSound.play()
+
+
+func update_animation_parameters():
+	if velocity == Vector2.ZERO:
+		animation_tree["parameters/conditions/is_idle"] = true
+		animation_tree["parameters/conditions/is_moving"] = false
+	else:
+		animation_tree["parameters/conditions/is_idle"] = false
+		animation_tree["parameters/conditions/is_moving"] = true
+	if (Input.is_action_just_pressed("parry")):
+		animation_tree["parameters/conditions/is_parrying"] = true
+
+
+	
+func on_ParryAnimation_finished(animation_name: String):
+	if (animation_name == "parry_right"):
+		animation_tree["parameters/conditions/is_parrying"] = false
+
+
+func on_ParryHitbox_area_entered(area: Area2D):
+	if area.is_in_group("enemyBullet"):
+		area.return_to_shooter()

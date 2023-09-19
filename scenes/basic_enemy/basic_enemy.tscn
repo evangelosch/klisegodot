@@ -77,3 +77,7 @@ shape = SubResource("CircleShape2D_d7ulp")
 [node name="DirectionChangeTimer" type="Timer" parent="."]
 wait_time = 1.5
 autostart = true
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 1.239
+autostart = true
