@@ -1,19 +1,83 @@
-[gd_scene load_steps=4 format=3 uid="uid://s5tqvbmssueh"]
+[gd_scene load_steps=10 format=3 uid="uid://s5tqvbmssueh"]
 
 [ext_resource type="Script" path="res://scenes/basic_enemy/basic_enemy.gd" id="1_7055l"]
-[ext_resource type="Texture2D" uid="uid://dbqa4o4ybly54" path="res://scenes/basic_enemy/basic_enemy.png" id="1_lk5ki"]
+[ext_resource type="Texture2D" uid="uid://4xlb60k1rmug" path="res://scenes/basic_enemy/slime.png" id="2_bglv6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v2m5v"]
+radius = 15.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_td2l5"]
+atlas = ExtResource("2_bglv6")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4qdkp"]
+atlas = ExtResource("2_bglv6")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xacl"]
+atlas = ExtResource("2_bglv6")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_502wf"]
+atlas = ExtResource("2_bglv6")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6x60o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_td2l5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4qdkp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4xacl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_502wf")
+}],
+"loop": true,
+"name": &"look_left",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d7ulp"]
-radius = 5.09902
+radius = 11.0
 
 [node name="BasicEnemy" type="CharacterBody2D"]
 collision_layer = 0
+collision_mask = 5
 script = ExtResource("1_7055l")
+
+[node name="DamageHitBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageHitBox"]
+position = Vector2(1, -8)
+shape = SubResource("CircleShape2D_v2m5v")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -4)
-texture = ExtResource("1_lk5ki")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -4)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite2D"]
+position = Vector2(1, -9)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_6x60o")
+animation = &"look_left"
+frame = 3
+frame_progress = 0.918439
+flip_h = true
+
+[node name="CollisionHitBox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_d7ulp")
+
+[node name="DirectionChangeTimer" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 1.239
+autostart = true

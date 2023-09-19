@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5q5ebk4lgss5"]
+
+[ext_resource type="Script" path="res://scenes/player/bullet_controller/player_bullet_controller.gd" id="1_b5mat"]
+[ext_resource type="Texture2D" uid="uid://ct6csmov83n8o" path="res://scenes/basic_enemy/bullet/Bullet7x7.png" id="2_3j3by"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_brbfb"]
+radius = 10.0499
+
+[node name="PlayerBullet" type="Area2D" groups=["PlayerBullet"]]
+scale = Vector2(0.5, 0.5)
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_b5mat")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2, -1.13687e-13)
+rotation = 4.71239
+scale = Vector2(2.13865, 2.98649)
+texture = ExtResource("2_3j3by")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_brbfb")
